@@ -4,9 +4,17 @@
     <AppNavigationDrawer/>
 
     <v-content>
-      <v-container>
+      <v-container class="safe-area-ios-container">
         <FeedSortFilter/>
         <FeedContainer v-if="videos" :loading="loading" :entries="videos"/>
+        <v-snackbar
+          bottom
+          color="error"
+          value="true"
+          v-for="(errorMessage, index) in errorMessages" :key="index"
+          >
+          {{ errorMessage }}
+        </v-snackbar>
       </v-container>
     </v-content>
   </v-app>
@@ -31,6 +39,8 @@ export default {
   },
 
   computed: mapState([
+    'config',
+    'errorMessages',
     'loading',
     'videos',
   ]),
@@ -39,12 +49,22 @@ export default {
     this.$store.dispatch('getChannels').then(() => {
       this.$store.dispatch('getVideos');
     });
+
+    this.$vuetify.theme.dark = this.$store.state.config.darkTheme;
+    this.$store.watch(
+      (state) => state.config.darkTheme,
+      (value) => { this.$vuetify.theme.dark = value; },
+    );
   },
 };
 </script>
 
 <style>
-body {
-  background-color: #1976d2;
+.safe-area-ios {
+  padding-top: env(safe-area-inset-top);
+}
+
+.safe-area-ios-container {
+  padding-top: calc(2.5 * env(safe-area-inset-top));
 }
 </style>

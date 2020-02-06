@@ -2,6 +2,7 @@
   <v-navigation-drawer
       app
       clipped
+      class="safe-area-ios"
       v-model="drawer"
     >
     <v-list dense class="d-block d-sm-none">
@@ -41,6 +42,7 @@
     <template v-slot:append>
       <v-divider/>
       <v-list dense>
+        <SettingsDialog/>
         <AboutDialog/>
       </v-list>
     </template>
@@ -51,11 +53,13 @@
 import { mapActions, mapState } from 'vuex';
 
 import AboutDialog from './AboutDialog.vue';
+import SettingsDialog from './SettingsDialog.vue';
 
 export default {
   name: 'AppNavigationDrawer',
   components: {
     AboutDialog,
+    SettingsDialog,
   },
   computed: {
     drawer: {

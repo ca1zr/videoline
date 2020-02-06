@@ -1,6 +1,7 @@
 export default {
   channels: [],
   drawer: false,
+  errorMessages: [],
   fuse: null,
   loading: false,
   searchQuery: '',
@@ -9,5 +10,10 @@ export default {
   sorting: {
     property: 'published',
     order: 'desc',
+  },
+  config: {
+    corsProxyUrl: 'https://cors-anywhere.herokuapp.com/',
+    videoLinkProvider: 'https://invidio.us/watch?v=',
+    customVideoLinkProvider: '',
   },
 };
